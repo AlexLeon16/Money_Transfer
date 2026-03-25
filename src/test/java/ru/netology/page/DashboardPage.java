@@ -2,10 +2,10 @@ package ru.netology.page;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.$;
 
 public class DashboardPage {
     private ElementsCollection cards = $$(".list__item");
@@ -13,16 +13,13 @@ public class DashboardPage {
     private final String balanceFinish = " р.";
     private SelenideElement refreshButton = $("[data-test-id='action-refresh']");
 
-    public DashboardPage() {
-    }
-
     public int getCardBalance(int index) {
         var text = cards.get(index).text();
         return extractBalance(text);
     }
 
     public int getCardBalance(String cardNumber) {
-        var text = cards.findBy(By.partialText(cardNumber)).text();
+        var text = cards.findBy(withText(cardNumber)).text();
         return extractBalance(text);
     }
 
@@ -32,7 +29,7 @@ public class DashboardPage {
     }
 
     public TransferPage selectCardToTopUp(String cardNumber) {
-        cards.findBy(By.partialText(cardNumber)).$("button").click();
+        cards.findBy(withText(cardNumber)).$("button").click();
         return new TransferPage();
     }
 
