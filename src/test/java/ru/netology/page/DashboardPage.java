@@ -3,7 +3,7 @@ package ru.netology.page;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Selectors.withText;
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.$;
 
@@ -19,17 +19,12 @@ public class DashboardPage {
     }
 
     public int getCardBalance(String cardNumber) {
-        var text = cards.findBy(withText(cardNumber)).text();
+        var text = cards.findBy(text(cardNumber)).text();
         return extractBalance(text);
     }
 
-    public TransferPage selectCardToTopUp(int index) {
-        cards.get(index).$("button").click();
-        return new TransferPage();
-    }
-
     public TransferPage selectCardToTopUp(String cardNumber) {
-        cards.findBy(withText(cardNumber)).$("button").click();
+        cards.findBy(text(cardNumber)).$("button").click();
         return new TransferPage();
     }
 
