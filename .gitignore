@@ -7,7 +7,7 @@ build/
 out/
 logs/
 *.log
-artifacts/
+
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
