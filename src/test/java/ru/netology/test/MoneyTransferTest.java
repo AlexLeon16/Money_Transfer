@@ -20,10 +20,10 @@ public class MoneyTransferTest {
 
         var authInfo = DataHelper.getAuthInfo();
         var loginPage = new LoginPage();
-        var verificationPage = loginPage.validLogin(authInfo.getLogin(), authInfo.getPassword());
+        var verificationPage = loginPage.validLogin(authInfo);
 
         var verificationCode = DataHelper.getVerificationCode();
-        dashboardPage = verificationPage.validVerify(verificationCode.getCode());
+        dashboardPage = verificationPage.validVerify(verificationCode);
     }
 
     @Test
@@ -32,16 +32,16 @@ public class MoneyTransferTest {
         var firstCard = DataHelper.getFirstCard();
         var secondCard = DataHelper.getSecondCard();
 
-        int initialBalanceFirstCard = dashboardPage.getCardBalance(firstCard.getCardNumber());
-        int initialBalanceSecondCard = dashboardPage.getCardBalance(secondCard.getCardNumber());
+        int initialBalanceFirstCard = dashboardPage.getCardBalance(firstCard);
+        int initialBalanceSecondCard = dashboardPage.getCardBalance(secondCard);
 
         int transferAmount = DataHelper.getValidAmount(initialBalanceSecondCard);
 
-        var transferPage = dashboardPage.selectCardToTopUp(firstCard.getCardNumber());
-        dashboardPage = transferPage.validTransfer(transferAmount, secondCard.getCardNumber());
+        var transferPage = dashboardPage.selectCardToTopUp(firstCard);
+        dashboardPage = transferPage.validTransfer(transferAmount, secondCard);
 
-        int actualBalanceFirstCard = dashboardPage.getCardBalance(firstCard.getCardNumber());
-        int actualBalanceSecondCard = dashboardPage.getCardBalance(secondCard.getCardNumber());
+        int actualBalanceFirstCard = dashboardPage.getCardBalance(firstCard);
+        int actualBalanceSecondCard = dashboardPage.getCardBalance(secondCard);
 
         assertEquals(initialBalanceFirstCard + transferAmount, actualBalanceFirstCard);
         assertEquals(initialBalanceSecondCard - transferAmount, actualBalanceSecondCard);
@@ -53,16 +53,16 @@ public class MoneyTransferTest {
         var firstCard = DataHelper.getFirstCard();
         var secondCard = DataHelper.getSecondCard();
 
-        int initialBalanceFirstCard = dashboardPage.getCardBalance(firstCard.getCardNumber());
-        int initialBalanceSecondCard = dashboardPage.getCardBalance(secondCard.getCardNumber());
+        int initialBalanceFirstCard = dashboardPage.getCardBalance(firstCard);
+        int initialBalanceSecondCard = dashboardPage.getCardBalance(secondCard);
 
         int transferAmount = DataHelper.getValidAmount(initialBalanceFirstCard);
 
-        var transferPage = dashboardPage.selectCardToTopUp(secondCard.getCardNumber());
-        dashboardPage = transferPage.validTransfer(transferAmount, firstCard.getCardNumber());
+        var transferPage = dashboardPage.selectCardToTopUp(secondCard);
+        dashboardPage = transferPage.validTransfer(transferAmount, firstCard);
 
-        int actualBalanceFirstCard = dashboardPage.getCardBalance(firstCard.getCardNumber());
-        int actualBalanceSecondCard = dashboardPage.getCardBalance(secondCard.getCardNumber());
+        int actualBalanceFirstCard = dashboardPage.getCardBalance(firstCard);
+        int actualBalanceSecondCard = dashboardPage.getCardBalance(secondCard);
 
         assertEquals(initialBalanceFirstCard - transferAmount, actualBalanceFirstCard);
         assertEquals(initialBalanceSecondCard + transferAmount, actualBalanceSecondCard);

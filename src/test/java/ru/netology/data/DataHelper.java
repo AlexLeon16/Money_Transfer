@@ -1,5 +1,7 @@
 package ru.netology.data;
 
+import lombok.Value;
+
 public class DataHelper {
     private DataHelper() {
     }
@@ -24,45 +26,25 @@ public class DataHelper {
         return balance / 2;
     }
 
+    public static String getMaskedCardNumber(String fullCardNumber) {
+        String digits = fullCardNumber.replaceAll("\\s+", "");
+        String last4 = digits.substring(digits.length() - 4);
+        return "**** **** **** " + last4;
+    }
+
+    @Value
     public static class AuthInfo {
-        private final String login;
-        private final String password;
-
-        public AuthInfo(String login, String password) {
-            this.login = login;
-            this.password = password;
-        }
-
-        public String getLogin() {
-            return login;
-        }
-
-        public String getPassword() {
-            return password;
-        }
+        String login;
+        String password;
     }
 
+    @Value
     public static class VerificationCode {
-        private final String code;
-
-        public VerificationCode(String code) {
-            this.code = code;
-        }
-
-        public String getCode() {
-            return code;
-        }
+        String code;
     }
 
+    @Value
     public static class CardInfo {
-        private final String cardNumber;
-
-        public CardInfo(String cardNumber) {
-            this.cardNumber = cardNumber;
-        }
-
-        public String getCardNumber() {
-            return cardNumber;
-        }
+        String cardNumber;
     }
 }
